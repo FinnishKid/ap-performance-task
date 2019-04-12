@@ -1,0 +1,116 @@
+var listClicked = [];
+var timesChecked = 0;
+var stage1 = ["red","green","blue","yellow"];
+
+  function flashBlue(){
+    hideElement("blue");
+    showElement("darkblue");
+    
+    setTimeout(function(){
+    hideElement("darkblue");
+    showElement("blue");
+    }, 600);
+  }
+  
+  function flashRed(){
+    hideElement("red");
+    showElement("darkred");
+    
+    setTimeout(function(){
+    hideElement("darkred");
+    showElement("red");
+    }, 600);
+  }
+
+  function flashGreen(){
+    hideElement("green");
+    showElement("darkgreen");
+    
+    setTimeout(function(){
+    hideElement("darkgreen");
+    showElement("green");
+    }, 600);
+  }
+    
+  function flashYellow(){
+    hideElement("yellow");
+    showElement("darkyellow");
+    
+    setTimeout(function(){
+    hideElement("darkyellow");
+    showElement("yellow");
+    }, 600);
+  }
+  
+function flashColors1(){
+  setTimeout(function() {flashRed();}, 800);
+  setTimeout(function() {flashGreen();}, 1600);
+  setTimeout(function() {flashBlue();}, 2500);
+  setTimeout(function() {flashYellow();}, 3400);
+}
+
+  onEvent("play_button", "click", function(){
+    console.log("play button pressed");
+    setScreen("game_screen");
+    flashColors1();
+  });
+  
+  onEvent("rules_button", "click", function(){
+    console.log("rules button pressed");
+    setScreen("rules_screen");
+  });
+
+onEvent("red", "click", function(){
+  appendItem(listClicked, "red");
+  timesChecked++;
+  checkCorrect();
+  flashRed();
+});
+  
+onEvent("green", "click", function(){
+  appendItem(listClicked, "green");
+  timesChecked++;
+  checkCorrect();
+  flashGreen();
+});
+  
+onEvent("yellow", "click", function(){
+  appendItem(listClicked, "yellow");
+  timesChecked++;
+  checkCorrect();
+  flashYellow();
+});
+  
+onEvent("blue", "click", function(){
+  appendItem(listClicked, "blue");
+  timesChecked++;
+  checkCorrect();
+  flashBlue();
+});
+
+function checkCorrect(){
+  if (timesChecked == 4){
+      if (listClicked[1] == stage1[1]){
+        if (listClicked[2] == stage1[2]){
+          if (listClicked[3] == stage1[3]){
+            if (listClicked[4] == stage1[4]){
+              console.log("Correct!");
+              setScreen("win_screen");
+            }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+          }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+        }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+      }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+    }
+}
