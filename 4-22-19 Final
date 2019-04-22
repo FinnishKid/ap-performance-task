@@ -1,0 +1,150 @@
+var listClicked = [];
+var timesChecked = 0;
+var stage1 = ["red","blue","green","yellow","green"];
+
+
+//Functions for color flashing made by Alay D.
+function flashBlue(){
+    hideElement("blue");
+    showElement("darkblue");
+    
+    setTimeout(function(){
+    hideElement("darkblue");
+    showElement("blue");
+    }, 600);
+  }
+  
+function flashRed(){
+    hideElement("red");
+    showElement("darkred");
+    
+    setTimeout(function(){
+    hideElement("darkred");
+    showElement("red");
+    }, 600);
+  }
+
+function flashGreen(){
+    hideElement("green");
+    showElement("darkgreen");
+    
+    setTimeout(function(){
+    hideElement("darkgreen");
+    showElement("green");
+    }, 600);
+  }
+    
+function flashYellow(){
+    hideElement("yellow");
+    showElement("darkyellow");
+    
+    setTimeout(function(){
+    hideElement("darkyellow");
+    showElement("yellow");
+    }, 600);
+  }
+
+function flashColors1(){
+  setTimeout(function() {flashRed();}, 800);
+  setTimeout(function() {flashBlue();}, 1600);
+  setTimeout(function() {flashGreen();}, 2500);
+  setTimeout(function() {flashYellow();}, 3400);
+  setTimeout(function() {flashGreen();}, 4400);
+}
+
+//Functions from here on made by Luke Graham
+
+function checkCorrect(list1, list2){
+  if (timesChecked == 5){
+      if (list1[1] == list2[1]){
+        if (list1[2] == list2[2]){
+          if (list1[3] == list2[3]){
+            if (list1[4] == list2[4]){
+              if (list1[5] == list2[5]){
+                console.log("Correct!");
+                setScreen("win_screen");
+              }else{
+                console.log("Incorrect!");
+                setScreen("lose_screen");
+              }
+            }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+          }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+        }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+      }else{
+        console.log("Incorrect!");
+        setScreen("lose_screen");
+      }
+    }
+  
+}
+
+onEvent("return_button", "click", function(){
+  setScreen("start_screen");
+});
+  
+onEvent("play_button", "click", function(){
+  console.log("play button pressed");
+  setScreen("game_screen");
+  flashColors1();
+});
+  
+onEvent("rules_button", "click", function(){
+  console.log("rules button pressed");
+  setScreen("rules_screen");
+});
+
+onEvent("red", "click", function(){
+  appendItem(listClicked, "red");
+  timesChecked++;
+  checkCorrect(listClicked, stage1);
+  flashRed();
+  playSound("sound://default.mp3", false);
+  
+});
+  
+onEvent("green", "click", function(){
+  appendItem(listClicked, "green");
+  timesChecked++;
+  checkCorrect(listClicked, stage1);
+  flashGreen();
+  playSound("sound://default.mp3", false);
+});
+  
+onEvent("yellow", "click", function(){
+  appendItem(listClicked, "yellow");
+  timesChecked++;
+  checkCorrect(listClicked, stage1);
+  flashYellow();
+  playSound("sound://default.mp3", false);
+});
+  
+onEvent("blue", "click", function(){
+  appendItem(listClicked, "blue");
+  timesChecked++;
+  checkCorrect(listClicked, stage1);
+  flashBlue();
+  playSound("sound://default.mp3", false);
+});
+
+onEvent("replay_button_win", "click", function(){
+  setScreen("start_screen");
+  timesChecked = 0;
+  listClicked = [];
+});
+
+onEvent("replay_button_lose", "click", function(){
+  setScreen("start_screen");
+  timesChecked = 0;
+  listClicked = [];
+});
+
+
